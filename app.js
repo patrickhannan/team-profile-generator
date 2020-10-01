@@ -117,7 +117,11 @@ function promptQuestion() {
                 console.log("Generated new team file.");
               });
         }
-    })
+    }).catch((err) => {
+        if(err) {
+          return err;
+        };
+      });
 }
 
 promptQuestion(questions);
