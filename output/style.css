@@ -1,0 +1,12 @@
+.jumbotron {
+    background-color: crimson;
+    color: white;
+}
+
+.employee-card {
+    margin: 10px;
+}
+
+.card-header {
+    background-color: royalblue
+}
