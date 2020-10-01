@@ -67,17 +67,55 @@ const questions = [
 
 const employeeArray = [];
 
-function promptQuestion (questions) {
-    inquirer
-    .prompt(questions)
-    .then(function(answers) {
-        employeeArray.push(answers);
+function promptQuestion() {
+    inquirer.prompt(questions).then(function(answers) {
 
         if (answers.addNewMembers == "Yes") {
             promptQuestion();
-        } 
+        } else {
+            const newManager = employeeArray.filter(({role}) => {
+                return role == "Manager";
+            })
+            newManager.forEach((manager) => {
+                const newEmployee = new Manager(
+                  manager.name,
+                  manager.id,
+                  manager.email,
+                  manager.officeNumber
+                );
+                employeeArray.push(newEmployee);
+              });
+
+            const newEngineer = employeeArray.filter(({role}) => {
+                return role == "Engineer";
+            })
+            newEngineer.forEach((engineer) => {
+                const newEmployee = new Engineer(
+                  engineer.name,
+                  engineer.id,
+                  engineer.email,
+                  engineer.github
+                );
+                employeeArray.push(newEmployee);
+              });
+
+            const newIntern = employeeArray.filter(({role}) => {
+                return role == "Intern";
+            })
+            newIntern.forEach((intern) => {
+                const newEmployee = new Intern(
+                  intern.name,
+                  intern.id,
+                  intern.email,
+                  intern.school
+                );
+                employeeArray.push(newEmployee);
+              });
+        }
     })
 }
+
+promptQuestion(questions);
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
