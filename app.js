@@ -32,42 +32,52 @@ const questions = [
         message: "What role is the employee?",
         choices: ["Manager", "Engineer", "Intern"]
     },
-]
-
-const managerQuestion = [
     {
         type: "input",
         name: "officeNumber",
         message: "Enter the manager's office number.",
-    }
-]
-
-const engineerQuestion = [
+        when: function (response) {
+            return response.role == "Manager";
+          },
+    },
     {
         type: "input",
         name: "github",
         message: "Enter this engineer's github profile.",
-    }
-]
-
-const internQuestion = [
+        when: function (response) {
+            return response.role == "Engineer";
+          },
+    },
     {
         type: "input",
         name: "school",
         message: "Enter this intern's school.",
-    }
-]
-
-const promptAgain = [
+        when: function (response) {
+            return response.role == "Intern";
+          },
+    },
     {
         type: "list",
         name: "addNewMember",
         message: "Would you like to add another member?",
         choices: ["Yes", "No"]
-    }
+    },
 ]
 
+
 const employeeArray = [];
+
+function promptQuestion (questions) {
+    inquirer
+    .prompt(questions)
+    .then(function(answers) {
+        employeeArray.push(answers);
+
+        if (answers.addNewMembers == "Yes") {
+            promptQuestion();
+        } 
+    })
+}
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
