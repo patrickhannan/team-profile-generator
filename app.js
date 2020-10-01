@@ -111,6 +111,11 @@ function promptQuestion() {
                 );
                 employeeArray.push(newEmployee);
               });
+            
+            fs.writeFile(outputPath, render(employeesArray), function (err) {
+                if (err) throw err;
+                console.log("Generated new team file.");
+              });
         }
     })
 }
